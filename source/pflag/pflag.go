@@ -1,27 +1,37 @@
-package flag
+package pflag
 
 import (
 	"errors"
-	"flag"
 	"strings"
 	"time"
 
 	"github.com/imdario/mergo"
 	"github.com/boxgo/config/source"
+	"github.com/spf13/pflag"
 )
 
-type flagsrc struct {
-	opts source.Options
+type (
+	pflagsrc struct {
+		opts source.Options
+	}
+)
+
+func (pfs *pflagsrc) String() string {
+	return "pflag"
 }
 
-func (fs *flagsrc) Read() (*source.ChangeSet, error) {
-	if !flag.Parsed() {
+func (pfs *pflagsrc) Watch() (source.Watcher, error) {
+	return source.NewNoopWatcher()
+}
+
+func (pfs *pflagsrc) Read() (*source.ChangeSet, error) {
+	if !pflag.Parsed() {
 		return nil, errors.New("flags not parsed")
 	}
 
 	var changes map[string]interface{}
 
-	visitFn := func(f *flag.Flag) {
+	visitFn := func(f *pflag.Flag) {
 		n := strings.ToLower(f.Name)
 		keys := strings.FieldsFunc(n, split)
 		reverse(keys)
@@ -40,49 +50,30 @@ func (fs *flagsrc) Read() (*source.ChangeSet, error) {
 		return
 	}
 
-	unset, ok := fs.opts.Context.Value(includeUnsetKey{}).(bool)
+	unset, ok := pfs.opts.Context.Value(includeUnsetKey{}).(bool)
 	if ok && unset {
-		flag.VisitAll(visitFn)
+		pflag.VisitAll(visitFn)
 	} else {
-		flag.Visit(visitFn)
+		pflag.Visit(visitFn)
 	}
 
-	b, err := fs.opts.Encoder.Encode(changes)
+	b, err := pfs.opts.Encoder.Encode(changes)
 	if err != nil {
 		return nil, err
 	}
 
 	cs := &source.ChangeSet{
-		Format:    fs.opts.Encoder.String(),
+		Format:    pfs.opts.Encoder.String(),
 		Data:      b,
 		Timestamp: time.Now(),
-		Source:    fs.String(),
+		Source:    pfs.String(),
 	}
 	cs.Checksum = cs.Sum()
 
 	return cs, nil
 }
 
-func split(r rune) bool {
-	return r == '-' || r == '_' || r == '.'
-}
-
-func reverse(ss []string) {
-	for i := len(ss)/2 - 1; i >= 0; i-- {
-		opp := len(ss) - 1 - i
-		ss[i], ss[opp] = ss[opp], ss[i]
-	}
-}
-
-func (fs *flagsrc) Watch() (source.Watcher, error) {
-	return source.NewNoopWatcher()
-}
-
-func (fs *flagsrc) String() string {
-	return "flag"
-}
-
-// NewSource returns a config source for integrating parsed flags.
+// NewSource returns a config source for integrating parsed pflags.
 // Hyphens are delimiters for nesting, and all keys are lowercased.
 //
 // Example:
@@ -94,5 +85,16 @@ func (fs *flagsrc) String() string {
 //          }
 //      }
 func NewSource(opts ...source.Option) source.Source {
-	return &flagsrc{opts: source.NewOptions(opts...)}
+	return &pflagsrc{opts: source.NewOptions(opts...)}
+}
+
+func split(r rune) bool {
+	return r == '-' || r == '_' || r == '.'
+}
+
+func reverse(ss []string) {
+	for i := len(ss)/2 - 1; i >= 0; i-- {
+		opp := len(ss) - 1 - i
+		ss[i], ss[opp] = ss[opp], ss[i]
+	}
 }

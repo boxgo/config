@@ -18,6 +18,7 @@ require (
 	github.com/micro/cli v0.1.0
 	github.com/micro/go-micro v1.1.0
 	github.com/pborman/uuid v1.2.0
+	github.com/spf13/pflag v1.0.3
 	go.etcd.io/etcd v3.3.12+incompatible
 	gocloud.dev v0.12.0
 	golang.org/x/net v0.0.0-20190420063019-afa5a82059c6
