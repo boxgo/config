@@ -1,9 +1,9 @@
 package memory
 
 import (
-	"github.com/micro/go-config/loader"
-	"github.com/micro/go-config/reader"
-	"github.com/micro/go-config/source"
+	"github.com/boxgo/config/loader"
+	"github.com/boxgo/config/reader"
+	"github.com/boxgo/config/source"
 )
 
 // WithSource appends a source to list of sources

@@ -3,7 +3,7 @@ package vault
 import (
 	"fmt"
 	"github.com/hashicorp/vault/api"
-	"github.com/micro/go-config/source"
+	"github.com/boxgo/config/source"
 	"time"
 )
 

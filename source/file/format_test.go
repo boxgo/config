@@ -3,7 +3,7 @@ package file
 import (
 	"testing"
 
-	"github.com/micro/go-config/source"
+	"github.com/boxgo/config/source"
 )
 
 func TestFormat(t *testing.T) {

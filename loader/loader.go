@@ -4,8 +4,8 @@ package loader
 import (
 	"context"
 
-	"github.com/micro/go-config/reader"
-	"github.com/micro/go-config/source"
+	"github.com/boxgo/config/reader"
+	"github.com/boxgo/config/source"
 )
 
 // Loader manages loading sources

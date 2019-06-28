@@ -1,9 +1,9 @@
 package config
 
 import (
-	"github.com/micro/go-config/loader"
-	"github.com/micro/go-config/reader"
-	"github.com/micro/go-config/source"
+	"github.com/boxgo/config/loader"
+	"github.com/boxgo/config/reader"
+	"github.com/boxgo/config/source"
 )
 
 // WithLoader sets the loader for manager config

@@ -3,7 +3,7 @@ package runtimevar
 import (
 	"context"
 
-	"github.com/micro/go-config/source"
+	"github.com/boxgo/config/source"
 	"gocloud.dev/runtimevar"
 )
 

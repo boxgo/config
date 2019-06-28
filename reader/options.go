@@ -1,12 +1,12 @@
 package reader
 
 import (
-	"github.com/micro/go-config/encoder"
-	"github.com/micro/go-config/encoder/hcl"
-	"github.com/micro/go-config/encoder/json"
-	"github.com/micro/go-config/encoder/toml"
-	"github.com/micro/go-config/encoder/xml"
-	"github.com/micro/go-config/encoder/yaml"
+	"github.com/boxgo/config/encoder"
+	"github.com/boxgo/config/encoder/hcl"
+	"github.com/boxgo/config/encoder/json"
+	"github.com/boxgo/config/encoder/toml"
+	"github.com/boxgo/config/encoder/xml"
+	"github.com/boxgo/config/encoder/yaml"
 )
 
 type Options struct {

@@ -3,7 +3,7 @@ package config
 import (
 	"time"
 
-	"github.com/micro/go-config/reader"
+	"github.com/boxgo/config/reader"
 )
 
 type value struct{}

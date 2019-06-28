@@ -3,7 +3,7 @@ package vault
 import (
 	"context"
 
-	"github.com/micro/go-config/source"
+	"github.com/boxgo/config/source"
 )
 
 type addressKey struct{}

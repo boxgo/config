@@ -5,7 +5,7 @@ import (
 	"io/ioutil"
 	"os"
 
-	"github.com/micro/go-config/source"
+	"github.com/boxgo/config/source"
 )
 
 type file struct {

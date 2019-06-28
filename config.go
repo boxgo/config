@@ -4,10 +4,10 @@ package config
 import (
 	"context"
 
-	"github.com/micro/go-config/loader"
-	"github.com/micro/go-config/reader"
-	"github.com/micro/go-config/source"
-	"github.com/micro/go-config/source/file"
+	"github.com/boxgo/config/loader"
+	"github.com/boxgo/config/reader"
+	"github.com/boxgo/config/source"
+	"github.com/boxgo/config/source/file"
 )
 
 // Config is an interface abstraction for dynamic configuration
