@@ -17,7 +17,7 @@ type Reader interface {
 // Values is returned by the reader
 type Values interface {
 	Bytes() []byte
-	Get(path ...string) Value
+	Get(path ...interface{}) Value
 	Map() map[string]interface{}
 	Scan(v interface{}) error
 }
@@ -26,6 +26,7 @@ type Values interface {
 type Value interface {
 	Bool(def bool) bool
 	Int(def int) int
+	Uint(def uint) uint
 	String(def string) string
 	Float64(def float64) float64
 	Duration(def time.Duration) time.Duration

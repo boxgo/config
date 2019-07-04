@@ -10,15 +10,15 @@ func TestReader(t *testing.T) {
 	data := []byte(`{"foo": "bar", "baz": {"bar": "cat"}}`)
 
 	testData := []struct {
-		path  []string
+		path  []interface{}
 		value string
 	}{
 		{
-			[]string{"foo"},
+			[]interface{}{"foo"},
 			"bar",
 		},
 		{
-			[]string{"baz", "bar"},
+			[]interface{}{"baz", "bar"},
 			"cat",
 		},
 	}

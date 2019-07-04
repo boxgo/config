@@ -3,7 +3,7 @@ module github.com/boxgo/config
 require (
 	cloud.google.com/go v0.37.4 // indirect
 	github.com/BurntSushi/toml v0.3.1
-	github.com/bitly/go-simplejson v0.5.0
+	github.com/aws/aws-sdk-go v1.20.15 // indirect
 	github.com/coreos/go-systemd v0.0.0-20190321100706-95778dfbb74e // indirect
 	github.com/fsnotify/fsnotify v1.4.7
 	github.com/ghodss/yaml v1.0.0
@@ -16,6 +16,7 @@ require (
 	github.com/hashicorp/hcl v1.0.0
 	github.com/hashicorp/vault v1.1.0
 	github.com/imdario/mergo v0.3.7
+	github.com/json-iterator/go v1.1.5
 	github.com/pborman/uuid v1.2.0
 	github.com/spf13/pflag v1.0.3
 	github.com/ugorji/go/codec v0.0.0-20190320090025-2dc34c0b8780 // indirect
