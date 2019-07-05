@@ -22,7 +22,7 @@ type (
 	}
 
 	testcase struct {
-		path []interface{}
+		path []string
 		typ  string
 		def  interface{}
 		exp  interface{}
@@ -100,18 +100,22 @@ func TestExtValues(t *testing.T) {
 		t,
 		values,
 		[]testcase{
-			testcase{path: []interface{}{"string"}, typ: "string", exp: "string", def: ""},
-			testcase{path: []interface{}{"string_slice"}, typ: "stringslice", exp: []string{"1", "2"}, def: []string{}},
-			testcase{path: []interface{}{"string_slice", 0}, typ: "string", exp: "1", def: ""},
-			testcase{path: []interface{}{"string_slice", 1}, typ: "string", exp: "2", def: ""},
-			testcase{path: []interface{}{"string_map_string"}, typ: "stringmapstring", exp: map[string]string{"key1": "1", "key2": "2"}, def: map[string]string{}},
-			testcase{path: []interface{}{"string_map_string", "key1"}, typ: "string", exp: "1", def: ""},
-			testcase{path: []interface{}{"string_map_string", "key2"}, typ: "string", exp: "2", def: ""},
-			testcase{path: []interface{}{"int"}, typ: "int", exp: -999, def: 0},
-			testcase{path: []interface{}{"uint"}, typ: "uint", exp: uint(999), def: uint(0)},
-			testcase{path: []interface{}{"bool"}, typ: "bool", exp: true, def: false},
-			testcase{path: []interface{}{"float64"}, typ: "float64", exp: 1.999999, def: 0.0},
-			testcase{path: []interface{}{"duration"}, typ: "duration", exp: time.Second * 5, def: time.Nanosecond},
+			testcase{path: []string{"string"}, typ: "string", exp: "string", def: ""},
+			testcase{path: []string{"string_slice"}, typ: "stringslice", exp: []string{"1", "2"}, def: []string{}},
+			testcase{path: []string{"string_slice.0"}, typ: "string", exp: "1", def: ""},
+			testcase{path: []string{"string_slice.1"}, typ: "string", exp: "2", def: ""},
+			testcase{path: []string{"string_slice", "0"}, typ: "string", exp: "1", def: ""},
+			testcase{path: []string{"string_slice", "1"}, typ: "string", exp: "2", def: ""},
+			testcase{path: []string{"string_map_string"}, typ: "stringmapstring", exp: map[string]string{"key1": "1", "key2": "2"}, def: map[string]string{}},
+			testcase{path: []string{"string_map_string.key1"}, typ: "string", exp: "1", def: ""},
+			testcase{path: []string{"string_map_string.key2"}, typ: "string", exp: "2", def: ""},
+			testcase{path: []string{"string_map_string", "key1"}, typ: "string", exp: "1", def: ""},
+			testcase{path: []string{"string_map_string", "key2"}, typ: "string", exp: "2", def: ""},
+			testcase{path: []string{"int"}, typ: "int", exp: -999, def: 0},
+			testcase{path: []string{"uint"}, typ: "uint", exp: uint(999), def: uint(0)},
+			testcase{path: []string{"bool"}, typ: "bool", exp: true, def: false},
+			testcase{path: []string{"float64"}, typ: "float64", exp: 1.999999, def: 0.0},
+			testcase{path: []string{"duration"}, typ: "duration", exp: time.Second * 5, def: time.Nanosecond},
 		}...,
 	)
 }

@@ -1,6 +1,9 @@
 package json
 
 import (
+	"strconv"
+	"strings"
+
 	"github.com/boxgo/config/reader"
 	"github.com/boxgo/config/source"
 	jsoniter "github.com/json-iterator/go"
@@ -29,10 +32,16 @@ func (j *jsonValues) Bytes() []byte {
 	return j.ch.Data
 }
 
-func (j *jsonValues) Get(path ...interface{}) reader.Value {
+func (j *jsonValues) Get(path ...string) reader.Value {
 	p := []interface{}{}
-	for _, item := range path {
-		p = append(p, item)
+	for _, pit := range path {
+		for _, it := range strings.Split(pit, ".") {
+			if i, err := strconv.ParseInt(it, 10, 32); err == nil {
+				p = append(p, int(i))
+			} else {
+				p = append(p, it)
+			}
+		}
 	}
 
 	return &jsonValue{

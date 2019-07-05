@@ -10,15 +10,15 @@ func TestValues(t *testing.T) {
 	data := []byte(`{"foo": "bar", "baz": {"bar": "cat"}}`)
 
 	testData := []struct {
-		path  []interface{}
+		path  []string
 		value string
 	}{
 		{
-			[]interface{}{"foo"},
+			[]string{"foo"},
 			"bar",
 		},
 		{
-			[]interface{}{"baz", "bar"},
+			[]string{"baz", "bar"},
 			"cat",
 		},
 	}
