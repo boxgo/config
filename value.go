@@ -28,6 +28,10 @@ func (v *value) Float64(def float64) float64 {
 	return 0.0
 }
 
+func (v *value) Uint(def uint) uint {
+	return 0
+}
+
 func (v *value) Duration(def time.Duration) time.Duration {
 	return time.Duration(0)
 }
