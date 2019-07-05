@@ -109,18 +109,30 @@ func (j *jsonValue) Float64(def float64) float64 {
 }
 
 func (j *jsonValue) Duration(def time.Duration) time.Duration {
-	v := j.value.ToString()
-	err := j.value.LastError()
-	if err != nil {
-		return def
+	if j.value.ValueType() == jsoniter.StringValue {
+		v := j.value.ToString()
+		err := j.value.LastError()
+		if err != nil {
+			return def
+		}
+
+		value, err := time.ParseDuration(v)
+		if err != nil {
+			return def
+		}
+
+		return value
+	} else if j.value.ValueType() == jsoniter.NumberValue {
+		v := j.value.ToInt64()
+		err := j.value.LastError()
+		if err != nil {
+			return def
+		}
+
+		return time.Duration(v) * time.Second
 	}
 
-	value, err := time.ParseDuration(v)
-	if err != nil {
-		return def
-	}
-
-	return value
+	return def
 }
 
 func (j *jsonValue) StringSlice(def []string) []string {

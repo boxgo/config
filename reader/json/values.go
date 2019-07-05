@@ -3,6 +3,8 @@ package json
 import (
 	"strconv"
 	"strings"
+	"time"
+	"unsafe"
 
 	"github.com/boxgo/config/reader"
 	"github.com/boxgo/config/source"
@@ -12,6 +14,25 @@ import (
 type jsonValues struct {
 	ch  *source.ChangeSet
 	api jsoniter.API
+}
+
+func init() {
+	jsoniter.RegisterTypeDecoderFunc("time.Duration", func(ptr unsafe.Pointer, iter *jsoniter.Iterator) {
+		switch iter.WhatIsNext() {
+		case jsoniter.NumberValue:
+			*(*time.Duration)(ptr) = time.Duration(iter.ReadInt64()) * time.Second
+		case jsoniter.StringValue:
+			str := iter.ReadString()
+			duration, err := time.ParseDuration(str)
+			if err != nil {
+				iter.ReportError("time.ParseDuration", err.Error())
+			} else {
+				*(*time.Duration)(ptr) = duration
+			}
+		default:
+			*(*interface{})(ptr) = iter.Read()
+		}
+	})
 }
 
 func newValues(ch *source.ChangeSet) (reader.Values, error) {
@@ -55,9 +76,5 @@ func (j *jsonValues) Map() map[string]interface{} {
 }
 
 func (j *jsonValues) Scan(v interface{}) error {
-	b, err := j.api.Marshal(j.ch.Data)
-	if err != nil {
-		return err
-	}
-	return j.api.Unmarshal(b, v)
+	return j.api.Unmarshal(j.ch.Data, v)
 }
