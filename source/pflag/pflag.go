@@ -5,8 +5,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/imdario/mergo"
 	"github.com/boxgo/config/source"
+	"github.com/imdario/mergo"
 	"github.com/spf13/pflag"
 )
 
@@ -39,7 +39,35 @@ func (pfs *pflagsrc) Read() (*source.ChangeSet, error) {
 		tmp := make(map[string]interface{})
 		for i, k := range keys {
 			if i == 0 {
-				tmp[k] = f.Value
+				var v interface{}
+				switch f.Value.Type() {
+				case "bool":
+					v = f.Value
+				case "float32", "float64":
+					v = f.Value
+				case "int", "int8", "int16", "int32", "int64":
+					v = f.Value
+				case "uint", "uint8", "uint16", "uint32", "uint64":
+					v = f.Value
+				case "stringSlice":
+					v, _ = pflag.CommandLine.GetStringSlice(f.Name)
+				case "intSlice":
+					v, _ = pflag.CommandLine.GetIntSlice(f.Name)
+				case "int32Slice":
+					v, _ = pflag.CommandLine.GetInt32Slice(f.Name)
+				case "int64Slice":
+					v, _ = pflag.CommandLine.GetInt64Slice(f.Name)
+				case "uintSlice":
+					v, _ = pflag.CommandLine.GetUintSlice(f.Name)
+				case "boolSlice":
+					v, _ = pflag.CommandLine.GetBoolSlice(f.Name)
+				case "durationSlice":
+					v, _ = pflag.CommandLine.GetDurationSlice(f.Name)
+				default:
+					v = f.Value
+				}
+
+				tmp[k] = v
 				continue
 			}
 
