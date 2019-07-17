@@ -76,5 +76,9 @@ func (j *jsonValues) Map() map[string]interface{} {
 }
 
 func (j *jsonValues) Scan(v interface{}) error {
+	if len(j.ch.Data) == 0 {
+		return nil
+	}
+
 	return j.api.Unmarshal(j.ch.Data, v)
 }

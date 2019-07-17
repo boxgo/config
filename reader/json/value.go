@@ -168,7 +168,10 @@ func (j *jsonValue) Scan(val interface{}) error {
 	b, err := j.api.Marshal(j.value)
 	if err != nil {
 		return err
+	} else if len(b) == 0 {
+		return nil
 	}
+
 	return j.api.Unmarshal(b, val)
 }
 
