@@ -11,14 +11,15 @@ require (
 	github.com/google/btree v1.0.0 // indirect
 	github.com/googleapis/gnostic v0.3.0 // indirect
 	github.com/grpc-ecosystem/grpc-gateway v1.8.5 // indirect
-	github.com/hashicorp/consul/api v1.1.0
+	github.com/hashicorp/consul v1.4.0
+	github.com/hashicorp/consul/api v1.3.0
 	github.com/hashicorp/go-retryablehttp v0.5.3 // indirect
 	github.com/hashicorp/hcl v1.0.0
 	github.com/hashicorp/vault v1.1.0
 	github.com/imdario/mergo v0.3.7
 	github.com/json-iterator/go v1.1.5
 	github.com/pborman/uuid v1.2.0
-	github.com/spf13/pflag v1.0.3
+	github.com/spf13/pflag v1.0.5
 	github.com/ugorji/go/codec v0.0.0-20190320090025-2dc34c0b8780 // indirect
 	go.etcd.io/etcd v3.3.12+incompatible
 	gocloud.dev v0.12.0
@@ -38,3 +39,5 @@ replace github.com/sourcegraph/go-diff => github.com/sourcegraph/go-diff v0.5.1
 replace github.com/golang/lint v0.0.0-20190409202823-959b441ac422 => github.com/golang/lint v0.0.0-20190409202823-5614ed5bae6fb75893070bdc0996a68765fdd275
 
 replace github.com/testcontainers/testcontainer-go => github.com/testcontainers/testcontainers-go v0.0.0-20181115231424-8e868ca12c0f
+
+go 1.13
