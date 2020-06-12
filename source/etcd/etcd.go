@@ -7,8 +7,8 @@ import (
 	"time"
 
 	"github.com/boxgo/config/source"
-	cetcd "go.etcd.io/etcd/clientv3"
-	"go.etcd.io/etcd/mvcc/mvccpb"
+	"github.com/coreos/etcd/clientv3"
+	"github.com/coreos/etcd/mvcc/mvccpb"
 )
 
 // Currently a single etcd reader
@@ -16,7 +16,7 @@ type etcd struct {
 	prefix      string
 	stripPrefix string
 	opts        source.Options
-	client      *cetcd.Client
+	client      *clientv3.Client
 	cerr        error
 }
 
@@ -29,7 +29,7 @@ func (c *etcd) Read() (*source.ChangeSet, error) {
 		return nil, c.cerr
 	}
 
-	rsp, err := c.client.Get(context.Background(), c.prefix, cetcd.WithPrefix())
+	rsp, err := c.client.Get(context.Background(), c.prefix, clientv3.WithPrefix())
 	if err != nil {
 		return nil, err
 	}
@@ -100,7 +100,7 @@ func NewSource(opts ...source.Option) source.Source {
 		endpoints = []string{"localhost:2379"}
 	}
 
-	config := cetcd.Config{
+	config := clientv3.Config{
 		Endpoints: endpoints,
 	}
 
@@ -111,7 +111,7 @@ func NewSource(opts ...source.Option) source.Source {
 	}
 
 	// use default config
-	client, err := cetcd.New(config)
+	client, err := clientv3.New(config)
 
 	prefix := DefaultPrefix
 	sp := ""
